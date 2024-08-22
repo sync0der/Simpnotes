@@ -21,10 +21,9 @@
 <div>Messages List:</div>
 <br>
 
-<form action="/filter" method="post">
-    <input type="text" name="filter">
+<form action="/" method="get">
+    <input type="text" name="filter" th:value="${filter}">
     <button type="submit">Find Message</button>
-    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
 </form>
 <br>
 

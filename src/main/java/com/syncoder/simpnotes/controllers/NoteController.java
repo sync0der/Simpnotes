@@ -20,9 +20,14 @@ public class NoteController {
     private final NoteService noteService;
 
     @GetMapping("/")
-    public String message(Model model) {
-        List<Note> notes = noteService.findAllNotes();
+    public String message(@RequestParam(required = false) String filter, Model model) {
+        List<Note> notes;
+        if (filter != null && !filter.isEmpty())
+            notes = noteService.findNotesByTag(filter);
+        else
+            notes = noteService.findAllNotes();
         model.addAttribute("notes", notes);
+        model.addAttribute("filter", filter);
         return "note";
     }
 
@@ -30,17 +35,6 @@ public class NoteController {
     public String message(@AuthenticationPrincipal User user, @RequestParam String text, @RequestParam String tag) {
         noteService.saveNote(new Note(text, tag, user));
         return "redirect:/";
-    }
-
-    @PostMapping("/filter")
-    public String filter(@RequestParam String filter, Model model) {
-        List<Note> notes;
-        if (filter != null && !filter.isEmpty())
-            notes = noteService.findNotesByTag(filter);
-        else
-            notes = noteService.findAllNotes();
-        model.addAttribute("notes", notes);
-        return "note";
     }
 
 
