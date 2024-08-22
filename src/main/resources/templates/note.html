@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="macros/common :: head(title='Simpnotes')"></head>
+
+<body>
+<div>
+    <form action="/logout" method="post">
+        <input type="submit" value="Log out">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+    </form>
+</div>
+<div>
+    <form action="/" method="post">
+        <input type="text" name="text" placeholder="Enter text"/>
+        <input type="text" name="tag" placeholder="Enter tag"/>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+<div>Messages List:</div>
+<br>
+
+<form action="/filter" method="post">
+    <input type="text" name="filter">
+    <button type="submit">Find Message</button>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+</form>
+<br>
+
+<div th:each="note : ${notes}">
+    <span th:text="${note.id} + ')' + ${note.text} + ' - ' + ${note.tag} + ' -> ' + ${note.author.username}"></span>
+</div>
+
+
+</body>
+</html>
