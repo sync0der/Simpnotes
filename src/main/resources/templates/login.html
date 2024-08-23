@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="macros/common :: head(title='Simpnotes: Login')"></head>
+<head th:replace="~{macros/common :: head(title='Simpnotes: Login')}"></head>
 <body>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h1 class="text-center text-primary">Simpnotes</h1>
             <h4 class="text-center text-secondary mt-4">Authorization</h4>
-            <div th:include="macros/credentials :: authorization('/login', 'Sign in')"></div>
+            <div th:replace="~{macros/credentials :: authorization('/login', 'Sign in')}"></div>
             <div class="text-center mt-3">
                 <a href="/registration" class="btn btn-link">Sign up</a>
             </div>
