@@ -12,17 +12,18 @@
             <th>Username</th>
             <th>Activity</th>
             <th>Roles</th>
+            <th>Editing</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${users}">
+        <tr th:each="user, iterStat : ${users}">
             <td th:text="${user.id}"></td>
             <td th:text="${user.username}"></td>
             <td th:text="${user.active}"></td>
-            <td th:each="role, iterStat : ${user.roles}">
-                <span th:text="${role}"></span>
-                <span th:if="${!iterStat.last}">, </span>
+            <td>
+                <span th:each="role, iterStat : ${user.roles}" th:text="${role.name} + (${!iterStat.last ? ', ' : ''})"></span>
             </td>
+            <td><a th:href="@{/admin/user/edit/{id}(id=${user.id})}" class="btn btn-warning btn-sm">Edit</a></td>
         </tr>
         </tbody>
         <tr th:if="${users.isEmpty()}">

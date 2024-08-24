@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{macros/common :: head('Simpnotes: Admin Page')}"></head>
+<body>
+<h3 class="text-center text-secondary mt-4">Update User Role</h3>
+<form th:action="@{/admin/user/edit/{userId}(userId=${user.id})}" method="post"
+      class="mt-4 p-4 border rounded bg-light shadow-sm">
+    <input type="text" name="username" th:value="${user.username}">
+    <div th:each="role : ${roles}">
+        <label><input type="checkbox" th:name="${role}" th:text="${role}"
+                      th:checked="${user.roles.contains(role)}"></label>
+    </div>
+    <input type="hidden" th:value="${_csrf}" name="_csrf">
+    <button type="submit" class="btn btn-primary mt-3 w-100">Update</button>
+</form>
+
+</body>
+</html>
