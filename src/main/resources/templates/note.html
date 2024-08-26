@@ -10,9 +10,10 @@
     </form>
 </div>
 <div>
-    <form action="/" method="post">
+    <form action="/" method="post" enctype="multipart/form-data">
         <input type="text" name="text" placeholder="Enter text"/>
         <input type="text" name="tag" placeholder="Enter tag"/>
+        <input type="file" name="file">
         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
         <button type="submit">Add</button>
     </form>
@@ -28,7 +29,13 @@
 <br>
 
 <div th:each="note : ${notes}">
-    <span th:text="${note.id} + ')' + ${note.text} + ' - ' + ${note.tag} + ' -> ' + ${note.author.username}"></span>
+    <span th:text="${note.id} + ')' + ${note.text} + ' - ' + ${note.tag} + ' -> ' + ${note.author.username}"></span><br>
+    <div th:if="${!note.images.isEmpty()}">
+        <div th:each="image : ${note.images}" class="m-2">
+            <img th:src="@{/images/{id}(id=${image.id})}" class="img-rounded" style="height: 300px; width: auto"
+                 alt="Product Image"/>
+        </div>
+    </div>
 </div>
 
 
