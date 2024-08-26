@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{macros/common :: head('Simpnotes: Admin Page')}"></head>
 <body>
+<div th:replace="~{macros/common :: popperAndJS}"></div>
+
 <h3 class="text-center text-secondary mt-4">Update User Role</h3>
 <form th:action="@{/admin/user/edit/{userId}(userId=${user.id})}" method="post"
       class="mt-4 p-4 border rounded bg-light shadow-sm">
