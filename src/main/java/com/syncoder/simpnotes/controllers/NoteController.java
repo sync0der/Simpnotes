@@ -21,12 +21,13 @@ public class NoteController {
     private final NoteService noteService;
 
     @GetMapping("/notes")
-    public String message(@RequestParam(required = false) String filter, Model model) {
+    public String message(@AuthenticationPrincipal User user, @RequestParam(required = false) String filter, Model model) {
         List<Note> notes;
         if (filter != null && !filter.isEmpty())
             notes = noteService.findNotesByTag(filter);
         else
             notes = noteService.findAllNotes();
+        model.addAttribute("user", user);
         model.addAttribute("notes", notes);
         model.addAttribute("filter", filter);
         return "note";
@@ -34,11 +35,10 @@ public class NoteController {
 
     @PostMapping("/notes")
     public String message(@AuthenticationPrincipal User user, @RequestParam String text, @RequestParam String tag,
-                          @RequestParam("file")MultipartFile file) {
+                          @RequestParam("file") MultipartFile file) {
         noteService.saveNoteWithImage(new Note(text, tag, user), file);
-        return "redirect:/";
+        return "redirect:/notes";
     }
-
 
 
 }
