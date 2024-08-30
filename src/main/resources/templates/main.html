@@ -24,11 +24,21 @@
                 </div>
             </ul>
 
-            <div th:if="${user}">
-                <div class="navbar-text" th:text="${user.username}"></div>
+            <div class="navbar-text me-3" th:text="${user.username}"></div>
+            <div th:if="${user.username}">
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <button type="submit" class="btn btn-primary">Sign out</button>
+                </form>
             </div>
         </div>
+        <div th:unless="${user.username}">
+            <a href="/login" class="btn btn-link">Sign up</a>
+        </div>
+    </div>
     </div>
 </nav>
+
+
 </body>
 </html>

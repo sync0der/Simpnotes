@@ -4,12 +4,7 @@
 
 <body>
 <div th:replace="~{macros/common :: popperAndJS}"></div>
-<div>
-    <form action="/logout" method="post" class="d-inline">
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-        <button type="submit" class="btn btn-outline-danger btn-sm">Exit</button>
-    </form>
-</div>
+
 <div th:if="${user}">
     <form action="/notes" method="post" enctype="multipart/form-data">
         <input type="text" name="text" placeholder="Enter text"/>
